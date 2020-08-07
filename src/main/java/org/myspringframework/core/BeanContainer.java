@@ -11,10 +11,7 @@ import org.myspringframework.core.annotation.Service;
 import org.myspringframework.util.ClassUtil;
 
 import java.lang.annotation.Annotation;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
@@ -100,5 +97,83 @@ public class BeanContainer {
      */
     public Object removeBean(Class<?> clazz){
         return beanMap.remove(clazz);
+    }
+
+    /**
+     * 根据class获取IOC容器中的Bean实例
+     * @param clazz
+     * @return
+     */
+    public Object getBean(Class<?> clazz){
+        return beanMap.get(clazz);
+    }
+
+    /**
+     * 返回所有的Class
+     * @return
+     */
+    public Set<Class<?>>  getAllClasses(){
+        return beanMap.keySet();
+    }
+
+    /**
+     * 返回所有的Beans实例
+     * @return
+     */
+    public Set<Object> getAllBeans(){
+        return new HashSet<>(beanMap.values());
+    }
+
+    /**
+     * 根据注解返回对应的类class
+     * @param annotation
+     * @return
+     */
+    public Set<Class<?>> getClassByAnnotation(Class<? extends Annotation> annotation){
+
+        Set<Class<?>> classSet = getAllClasses();
+        if(classSet==null||classSet.size()==0){
+            log.warn("BeanMap为空");
+            return null;
+        }
+
+        Set<Class<?>> annotationMap = new HashSet<>();
+
+        for (Class<?> clazz:classSet
+             ) {
+            if(clazz.isAnnotationPresent(annotation)){
+                annotationMap.add(clazz);
+            }
+        }
+
+        return annotationMap.size()==0?null:annotationMap;
+
+    }
+
+
+    /**
+     * 根据接口或者父类返回子类
+     * @param interfaceClass
+     * @return
+     */
+    public Set<Class<?>> getClassByInterface(Class<?> interfaceClass){
+
+        Set<Class<?>> classSet = getAllClasses();
+        if(classSet==null||classSet.size()==0){
+            log.warn("BeanMap为空");
+            return null;
+        }
+
+        Set<Class<?>> cls = new HashSet<>();
+
+        for (Class<?> clazz:classSet) {
+            //clazz implements interfaceClass or clazz extends interfaceClass
+            if(interfaceClass.isAssignableFrom(clazz)){
+                cls.add(clazz);
+            }
+        }
+
+        return cls.size()==0?null:cls;
+
     }
 }
