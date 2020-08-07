@@ -1,0 +1,9 @@
+<servlet>
+    <servlet-name>login</servlet-name> //servlet名
+    <servlet-class>cn.chen.DealGet.ServletTest</servlet-class> //处理类
+</servlet>
+
+<servlet-mapping>
+<servlet-name>login</servlet-name> //servlet名
+<url-pattern>/login</url-pattern> //链接后缀
+</servlet-mapping>
