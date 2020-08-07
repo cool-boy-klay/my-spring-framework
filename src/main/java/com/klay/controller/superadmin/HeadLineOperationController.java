@@ -6,6 +6,7 @@ import com.klay.entity.bo.HeadLine;
 import com.klay.entity.dto.Result;
 import com.klay.service.solo.HeadLineService;
 import org.myspringframework.core.annotation.Controller;
+import org.myspringframework.inject.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +15,7 @@ import java.util.List;
 @Controller
 //@RequestMapping(value = "/headline")
 public class HeadLineOperationController {
-//    @Autowired(value = "HeadLineServiceImpl")
+    @Autowired(value = "HeadLineServiceImpl")
     private HeadLineService headLineService;
 //    @RequestMapping(value = "/add", method = RequestMethod.POST)
 //    public ModelAndView addHeadLine(@RequestParam("lineName") String lineName,
