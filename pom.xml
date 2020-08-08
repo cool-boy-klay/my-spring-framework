@@ -45,6 +45,13 @@
             <version>5.5.2</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>3.2.9</version>
+
+        </dependency>
     </dependencies>
 
     <build>
